@@ -25,6 +25,18 @@ def course():
 def custom_response():
     return jsonify(message='Custom Response'), 200
 
+@app.route('/book/<isbn>', methods=['GET'])
+def get_book(isbn):
+    # Call the external API
+    res = requests.get(f'https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json')
+    
+    if res.status_code == 200:
+        return jsonify(res.json())
+    elif res.status_code == 404:
+        return jsonify({"message": "Something went wrong."}), 404
+    else:
+        return jsonify({"message": "Server error."}), 500
+
 
 # Main entry point to run the app
 if __name__ == '__main__':
