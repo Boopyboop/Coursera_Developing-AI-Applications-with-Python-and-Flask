@@ -1,43 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask
+from routes import register_blueprints
 from dotenv import load_dotenv
-import requests
-import os
 
 # Load environment variables from .env file
 load_dotenv()
 
-app = Flask(__name__)
+def create_app():
+    """Create and configure the Flask application."""
+    app = Flask(__name__)
+    register_blueprints(app)
+    return app
 
-# Health check endpoint supporting GET and POST
-@app.route('/health', methods=['GET', 'POST'])
-def health():
-    return jsonify(status='OK', method=request.method)
-
-# Endpoint to retrieve course info via query parameters
-@app.route('/course')
-def course():
-    course_name = request.args.get('course', 'Unknown')
-    rating = request.args.get('rating', 'Not rated')
-    return jsonify(course=course_name, rating=rating)
-
-# Custom response endpoint returning JSON with status code
-@app.route('/custom')
-def custom_response():
-    return jsonify(message='Custom Response'), 200
-
-@app.route('/book/<isbn>', methods=['GET'])
-def get_book(isbn):
-    # Call the external API
-    res = requests.get(f'https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&format=json')
-    
-    if res.status_code == 200:
-        return jsonify(res.json())
-    elif res.status_code == 404:
-        return jsonify({"message": "Something went wrong."}), 404
-    else:
-        return jsonify({"message": "Server error."}), 500
-
-
-# Main entry point to run the app
+# Used by 'flask run'
+app = create_app()
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the app in debug mode for development
+    app.run(debug=True)     # This allows the app to be run directly with 'python app.py'
