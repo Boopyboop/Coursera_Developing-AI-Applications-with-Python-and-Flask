@@ -1,7 +1,7 @@
 
 # Coursera_Developing-AI-Applications-with-Python-and-Flask
 
-This repository contains my implementation of the course **"Developing AI Applications with Python and Flask"** by IBM on Coursera.  
+🧪 This repository is my personal workspace for experimenting with the code and concepts taught in the course **"Developing AI Applications with Python and Flask"** by IBM on Coursera.  
 [Course link](https://www.coursera.org/learn/python-project-for-ai-application-development)
 
 ---
@@ -56,13 +56,9 @@ pip install -r requirements.txt
 Create a `.env` file in the root directory to set environment variables for Flask:
 
 ```
-FLASK_APP=server
+FLASK_APP=app
 FLASK_ENV=development
 ```
-
-> **Note:**  
-> - `FLASK_APP=server` tells Flask which Python file to use (replace `server` with your main script filename without `.py` if different).  
-> - `FLASK_ENV=development` enables debug mode for easier development.
 
 ---
 
@@ -71,7 +67,7 @@ FLASK_ENV=development
 Run the Flask development server with:
 
 ```bash
-flask --app server --debug run
+flask --app app --debug run
 ```
 
 Or simply:
