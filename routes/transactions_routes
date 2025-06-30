@@ -1,0 +1,29 @@
+from flask import Blueprint, render_template, request, redirect, url_for
+
+# Blueprint definition
+transactions_bp = Blueprint('transactions', __name__)
+
+# Sample data
+transactions = [
+    {'id': 1, 'date': '2023-06-01', 'amount': 100},
+    {'id': 2, 'date': '2023-06-02', 'amount': -200},
+    {'id': 3, 'date': '2023-06-03', 'amount': 300}
+]
+
+# Home page with list of transactions
+@transactions_bp.route('/')
+def render_index_page():
+    return render_template('index.html', transactions=transactions)
+
+# Form to add a transaction
+@transactions_bp.route('/add', methods=['GET', 'POST'])
+def add_transaction():
+    if request.method == 'POST':
+        transaction = {
+            'id': len(transactions) + 1,
+            'date': request.form['date'],
+            'amount': float(request.form['amount'])
+        }
+        transactions.append(transaction)
+        return redirect(url_for('transactions.render_index_page'))  # Use blueprint name
+    return render_template("form.html")
