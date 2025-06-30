@@ -7,7 +7,7 @@ data = []
 # Create a Blueprint for person-related routes
 person_bp = Blueprint('person', __name__)
 
-@person_bp.route('/')
+@person_bp.route('/person')
 def index():
     """Root route for base testing."""
     return "Hello world"

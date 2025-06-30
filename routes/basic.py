@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify
 
 basic_bp = Blueprint('basic', __name__)
 
@@ -19,7 +19,3 @@ def custom_response():
     """Custom response endpoint returning JSON with status code 200."""
     return jsonify(message='Custom Response'), 200
 
-@basic_bp.route('/')
-def render_index_page():
-    """Render the index.html page."""
-    return render_template('index.html')
