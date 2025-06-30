@@ -1,6 +1,7 @@
 from flask import Flask
 from routes import register_blueprints
 from dotenv import load_dotenv
+from routes.mathematics import summation, subtraction, multiplication
 
 # Load environment variables from .env file
 load_dotenv()
